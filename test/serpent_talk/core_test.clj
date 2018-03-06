@@ -25,6 +25,8 @@
     (is (= true (#(if (string? %) (= (clojure.string/reverse %) %) (= (reverse %) %)) '(1 2 2 1)))  )
     (is (= true (#(if (string? %) (= (clojure.string/reverse %) %) (= (reverse %) %)) '(1 2 4 2 1)))  )
     (is (= false (#(if (string? %) (= (clojure.string/reverse %) %) (= (reverse %) %))  [1 2 3 4 2 1]))  )
+    (is (= false (#(= (reverse %) (seq %))  [1 2 3 4 2 1]))  )
+
   )
 
   )
