@@ -20,8 +20,11 @@
                     :when (= 1 (rem x 4))]
                 x))))
 
-  (testing "palindrome"
-    (is (= true (#(= (clojure.string/reverse %) %) "paap"))  )
+  (testing "palindrome in general"
+    (is (= true (#(if (string? %) (= (clojure.string/reverse %) %) (= (reverse %) %)) "paap"))  )
+    (is (= true (#(if (string? %) (= (clojure.string/reverse %) %) (= (reverse %) %)) '(1 2 2 1)))  )
+    (is (= true (#(if (string? %) (= (clojure.string/reverse %) %) (= (reverse %) %)) '(1 2 4 2 1)))  )
+    (is (= false (#(if (string? %) (= (clojure.string/reverse %) %) (= (reverse %) %))  [1 2 3 4 2 1]))  )
   )
 
   )
