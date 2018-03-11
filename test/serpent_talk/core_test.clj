@@ -29,4 +29,18 @@
 
   )
 
+  (testing "remove duplicates in strings"
+    (is (= (apply str ((fn my_accum [inp] (loop [xs inp
+                                                 result []]
+                                            (if xs
+                                              (let [x (first xs)]
+                                                (if (= (last result) x) (recur (next xs) result) (recur (next xs) (conj result x)) ))
+                                              result)))  "Leeeerrroyyyyyyy")) "Leroy" )
+    )
   )
+
+  (testing "remove duplicates in strings - most elegant way"
+    (is (= (apply str (#(map first (partition-by identity %)) "Leeeeooorrroyyyyyyy")) "Leoroy" )
+        )
+    )
+)
