@@ -43,4 +43,14 @@
     (is (= (apply str (#(map first (partition-by identity %)) "Leeeeooorrroyyyyyyy")) "Leoroy" )
         )
     )
+
+  (testing "drop every third element in array"
+    (is (= (#(flatten (partition (- %2 1) %2 %1)) [1 2 3 4 5 6 7 8] 3) [1 2 4 5 7 8]))
+    )
+
+  (testing "drop every forth element in array"
+    (is (= (#(flatten  (partition (- %2 1) %2 nil %1)) [1 2 3 4 5 6] 4) [1 2 3 5 6]))
+    )
+
+
 )
