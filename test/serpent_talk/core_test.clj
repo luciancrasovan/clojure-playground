@@ -45,7 +45,7 @@
     )
 
   (testing "drop every third element in array"
-    (is (= (#(flatten (partition (- %2 1) %2 %1)) [1 2 3 4 5 6 7 8] 3) [1 2 4 5 7 8]))
+    (is (= (#(flatten (partition (- %2 1) %2 nil %1)) [1 2 3 4 5 6 7 8] 3) [1 2 4 5 7 8]))
     )
 
   (testing "drop every fourth element in array"
@@ -55,6 +55,28 @@
   (testing "drop every fourth character in string"
     (is (= (#(apply str (flatten  (partition (- %2 1) %2 nil %1))) "tikitakatekutoko" 4) "tiktaktektok"))
     )
+
+)
+
+(deftest day5
+  (testing "repeat n times any list element"
+    (is (= (#(reduce into [] (map (fn [x] (repeat %2 x)) %1)) [1 2 3] 4) [1 1 1 1 2 2 2 2 3 3 3 3]))
+    )
+
+  (testing "repeat x times any array in a list of arrays"
+    (is (= (#(reduce into [] (map (fn [x] (repeat %2 x)) %1)) [[1 2] [2 3] [3 4]] 2) '([1 2] [1 2] [2 3] [2 3] [3 4] [3 4]) ))
+    )
+
+  (testing "repeat x times any array in a list of arrays"
+    (is (= (#(reduce into [] (map (fn [x] (repeat %2 x)) %1)) [1 2 3] 2) '(1 1 2 2 3 3) ))
+    )
+
+  (testing "repeat x times any array in a list of arrays"
+    (is (= (#(reduce into [] (map (fn [x] (repeat %2 x)) %1)) [:a :b] 4) '(:a :a :a :a :b :b :b :b)) )
+    )
+
+  (testing "repeat x times any array in a list of arrays"
+    (is (= (#(reduce into [] (map (fn [x] (repeat %2 x)) %1)) [44 33] 2) [44 44 33 33])) )
 
 
 )
