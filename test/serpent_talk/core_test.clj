@@ -91,3 +91,11 @@
     (is (= (take 7 (map first (iterate (fn [[a b]] [b (+' a b)]) [0 1]))) [0 1 1 2 3 5 8]))
     )
   )
+
+(deftest get_caps
+  (testing "writes a functions that returns only caps in a string"
+    (is (= (#(clojure.string/join "" (re-seq #"[A-Z]" %)) "HeLlO, WoRlD!") "HLOWRD"))
+    )
+  )
+
+
