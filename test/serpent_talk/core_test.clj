@@ -59,7 +59,7 @@
 )
 
 (deftest day5
-  (testing "repeat n times any list element"
+  (testing "repeat n times any array element"
     (is (= (#(reduce into [] (map (fn [x] (repeat %2 x)) %1)) [1 2 3] 4) [1 1 1 1 2 2 2 2 3 3 3 3]))
     )
 
@@ -67,16 +67,24 @@
     (is (= (#(reduce into [] (map (fn [x] (repeat %2 x)) %1)) [[1 2] [2 3] [3 4]] 2) '([1 2] [1 2] [2 3] [2 3] [3 4] [3 4]) ))
     )
 
-  (testing "repeat x times any array in a list of arrays"
-    (is (= (#(reduce into [] (map (fn [x] (repeat %2 x)) %1)) [1 2 3] 2) '(1 1 2 2 3 3) ))
-    )
-
-  (testing "repeat x times any array in a list of arrays"
+  (testing "repeat x times any symbol in an array"
     (is (= (#(reduce into [] (map (fn [x] (repeat %2 x)) %1)) [:a :b] 4) '(:a :a :a :a :b :b :b :b)) )
     )
 
-  (testing "repeat x times any array in a list of arrays"
-    (is (= (#(reduce into [] (map (fn [x] (repeat %2 x)) %1)) [44 33] 2) [44 44 33 33])) )
-
+  (testing "repeat x times with a very compact method"
+    (is (= ((fn [xs n] (mapcat #(repeat n %) xs)) [44 33] 2) [44 44 33 33])) )
 
 )
+
+(deftest fibonacci_numbers
+  (testing "writes a functions that returns the first n fibonacci numbers"
+    (is (= ((fn fibos [n] (
+                            case n
+                            1 [1]
+                            2 [1 1]
+                            (conj (fibos (- n 1)) (reduce + (take-last 2 (fibos (- n 1)))))
+                            )
+              ) 7) [1 1 2 3 5 8 13]))
+    )
+
+  )
