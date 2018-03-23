@@ -145,6 +145,16 @@
                                   )
                                 ))) 1023 858)))
     )
+  (testing "greates common divisor of 1023 and 858 is 33 - shorter version"
+    (is (= 33 ((fn gcd [a b] (cond
+                               (= a b) a
+                               (> a b) (recur (- a b) b)
+                               :else (recur (- b a) a)
+                                 )) 1023 858)))
+    )
+  (testing "greates common divisor of 1023 and 858 is 33 - much faster version - look at remainders"
+    (is (= 33 ((fn gcd [a b] (if (zero? b) a (recur b (rem a b)))) 1023 858)))
+    )
   )
 
 
