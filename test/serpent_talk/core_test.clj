@@ -132,4 +132,19 @@
     (is (=  ((fn [first & rest] (or (and (not first) (some true? rest)) (and first (not (every? true? rest))) )) true true true true) false)))
   )
 
+(deftest gcd
+  (testing "greates common divisor of 1023 and 858 is 33"
+    (is (= 33 ((fn gcd [a b] (loop [x a
+                                     y b]
+                                (if (= x y)
+                                  x
+                                  (let [xmin (min x y)
+                                        xmax (max x y)]
+
+                                  (recur (- xmax xmin) xmin)
+                                  )
+                                ))) 1023 858)))
+    )
+  )
+
 
