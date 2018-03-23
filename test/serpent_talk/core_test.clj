@@ -98,4 +98,38 @@
     )
   )
 
+(deftest intro_some
+  (testing "learn how some is working"
+    (is (= (some #{2 7 6} [5 6 7 8]) 6))
+    )
+  )
+
+(deftest fact
+  (testing "a function that calculates factorial"
+    (is (= ((fn fact [x] (case x
+                           1 1
+                           (* x (fact (- x 1))))) 5) 120))
+  ))
+
+(deftest destruct
+  (testing "intro to destruct"
+    (is (= [2 4] (let [[a b c d e] [0 1 2 3 4]] [c e])))
+    )
+  )
+
+(deftest half-truth
+  (testing "returns true if some is true but not all are true - case 1"
+    (is (=  ((fn [first & rest] (or (and (not first) (some true? rest)) (and first (not (every? true? rest))) )) true true true false) true)))
+  (testing "returns true if some is true but not all are true - case 2"
+    (is (=  ((fn [first & rest] (or (and (not first) (some true? rest)) (and first (not (every? true? rest))) )) true false false) true)))
+  (testing "returns true if some is true but not all are true - case 3"
+    (is (=  ((fn [first & rest] (or (and (not first) (some true? rest)) (and first (not (every? true? rest))) )) false true true false) true)))
+  (testing "returns true if some is true but not all are true - case 4"
+    (is (=  ((fn [first & rest] (or (and (not first) (some true? rest)) (and first (not (every? true? rest))) )) false false false true false) true)))
+  (testing "returns false if all false"
+    (is (=  ((fn [first & rest] (or (and (not first) (some true? rest)) (and first (not (every? true? rest))) )) false false false) false)))
+  (testing "returns false if all true"
+    (is (=  ((fn [first & rest] (or (and (not first) (some true? rest)) (and first (not (every? true? rest))) )) true true true true) false)))
+  )
+
 
