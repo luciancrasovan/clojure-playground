@@ -158,3 +158,30 @@
   )
 
 
+(deftest clojure-power
+  (testing "lexical clojure with a sum function"
+    (is (= 5 ((partial + 2) 3)))
+    )
+
+  (testing "lexical clojure with a product function"
+    (is (= 606 ((partial * 2) 303)))
+    )
+
+  (testing "lexical clojure with a special 2-arity function - max in this case"
+    (is (= 3 ((partial #(max %1 %2) 2) 3)))
+    )
+
+  (testing "lexical clojure as power-flower"
+    (is (= 8 ((partial #(.pow (BigInteger. %1) %2) "2") 3)))
+    )
+
+  (testing "lexical clojure as power-flower - previous improved to work with integers"
+    (is (= 8 ((partial #(.pow (BigInteger. (str %1)) %2) 2) 3)))
+    )
+
+  (testing "lexical clojure as power-flower - with 4clojure test cases"
+    (is (= 256 ((partial #(.pow (BigInteger. (str %2)) %1) 2) 16)))
+    )
+  (testing "lexical clojure as power-flower - with 4clojure nice solution -repeated multiplication"
+    (is (= 256 (((fn [x] #(apply * (repeat x %))) 8) 2))))
+  )
